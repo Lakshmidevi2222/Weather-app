@@ -2,12 +2,7 @@ const apiKey = "e9a75d8bf8802d37ce4fc794915b92cd";
 let currentUnit = "metric";
 
 function formatDateTime(dt, timezone) {
-  // dt is UTC timestamp in seconds
-  // timezone is offset from UTC in seconds (+/-)
-
-  // Create UTC date from dt
   const utcDate = new Date(dt * 1000);
-
   const localTime = new Date(utcDate.getTime() + timezone * 1000);
 
   const options = {
@@ -23,7 +18,6 @@ function formatDateTime(dt, timezone) {
 
   return localTime.toLocaleString("en-US", options);
 }
-
 
 function updateBackground(tempCelsius) {
   if (tempCelsius <= 10) {
@@ -43,13 +37,11 @@ async function getWeather() {
   }
 
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${currentUnit}`;
-
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error("City not found");
     const data = await res.json();
 
-    // Convert temperature to Celsius for background logic
     let tempC = currentUnit === "metric" ? data.main.temp : (data.main.temp - 32) * 5 / 9;
     updateBackground(tempC);
 
