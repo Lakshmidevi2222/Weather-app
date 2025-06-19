@@ -1,7 +1,6 @@
-const apiKey = "e9a75d8bf8802d37ce4fc794915b92cd"; // Your OpenWeather API key
-let currentUnit = "metric"; // "metric" for Celsius, "imperial" for Fahrenheit
+const apiKey = "e9a75d8bf8802d37ce4fc794915b92cd"; 
+let currentUnit = "metric";
 
-// Format date/time based on city timezone and timestamp
 function formatDateTime(dt, timezone) {
   // dt is UTC timestamp in seconds
   // timezone is offset from UTC in seconds (+/-)
@@ -9,10 +8,8 @@ function formatDateTime(dt, timezone) {
   // Create UTC date from dt
   const utcDate = new Date(dt * 1000);
 
-  // Add timezone offset to get city local time
   const localTime = new Date(utcDate.getTime() + timezone * 1000);
 
-  // Format options
   const options = {
     weekday: "short",
     year: "numeric",
@@ -21,7 +18,7 @@ function formatDateTime(dt, timezone) {
     hour: "2-digit",
     minute: "2-digit",
     hour12: true,
-    timeZone: 'UTC'  // Important: treat this date as UTC to avoid browser offset
+    timeZone: 'UTC' 
   };
 
   return localTime.toLocaleString("en-US", options);
@@ -38,7 +35,6 @@ function updateBackground(tempCelsius) {
   }
 }
 
-// Fetch weather data and display results
 async function getWeather() {
   const city = document.getElementById("cityInput").value.trim();
   if (!city) {
